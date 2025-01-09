@@ -1,0 +1,2 @@
+-- creación de base de datos en SQL Server
+--En construcción 
