@@ -6,4 +6,4 @@ Base de datos para negocios digitales
 2. Manipulación avanzadas (joins, subconsultas, storess, procedures, triggers, index y views).
 3. Manejo de transacciones
 1. Bases de datos NoSQL (MongoDB.) 
-! [Base de Datos](./Images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg)
+![Base de Datos](./Images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg)
