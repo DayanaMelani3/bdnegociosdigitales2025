@@ -44,6 +44,11 @@ on o.CustomerID = c.CustomerID
 group by e.FirstName, e.LastName, c.CompanyName
 order by [nombre] asc, [cliente]
 
+-- Left join, rigth join, full join y cross join
+
+--practica de utilización de left join 
+
+--seleccionar los datos que se van a utilizar para insertar 
 
 
 
