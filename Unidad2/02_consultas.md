@@ -1,7 +1,8 @@
 ``Consultas de agregado``
 
 
-
+![Consultas](./img/4.webp)
+- Lenguaje SQL-LMD (insert, update, delete, select - CRUD)
 
 - cuantos clientes tengo
 select count(*) as 'Numero de clientes' 

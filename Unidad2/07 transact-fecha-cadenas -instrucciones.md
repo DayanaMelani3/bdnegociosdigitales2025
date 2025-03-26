@@ -1,73 +1,70 @@
+**Funciones de cadena**
 
-CREATE OR ALTER VIEW [dbo].[vistaOrdenesDeCompra]  
-AS  
-SELECT  
-    o.OrderID AS [Número Orden],  
-    o.OrderDate AS [Fecha de Orden],  
-    o.RequiredDate AS [Fecha de Requisición],  
-    CONCAT(e.FirstName, ' ', e.LastName) AS [Nombre de Empleado],  
-    cu.CompanyName AS [Nombre del Cliente],  
-    p.ProductName AS [Nombre de Producto],  
-    c.CategoryName AS [Nombre de la Categoría],  
-    od.UnitPrice AS [Precio de Venta],  
-    od.Quantity AS [Cantidad Vendida],  
-    (od.Quantity * od.UnitPrice) AS [Importe]  
-FROM Categories AS c  
-INNER JOIN Products AS p  
-    ON c.CategoryID = p.CategoryID  
-INNER JOIN [Order Details] AS od  
-    ON od.ProductID = p.ProductID   
-INNER JOIN Orders AS o  
-    ON od.OrderID = o.OrderID  
-INNER JOIN Customers AS cu  
-    ON cu.CustomerID = o.CustomerID  
-INNER JOIN Employees AS e  
-    ON e.EmployeeID = o.EmployeeID
-
-select count(distinct [numero Orden]) as [Numero de Ordenes]
-from vistaordenescompra
-
-select sum([Cantidad Vendida] * [Precio de Venta]) as [importe Total]
-from vistaordenescompra
-Go
-
-select sum(importe) as [importe Total]
-from vistaordenescompra
-where year([Fecha de Orden]) between '1995' and '1996'  
-Go
-
-create or alter view vista_ordenes_1995_1996
-as
-select [Nombre del Cliente] as 'Nombre Cliente',
-sum(importe) as [importe Total]
-from vistaordenescompra
-where year([Fecha de Orden])
-between '1995' and '1996'  
-group by [Nombre del Cliente]
-having count(*)>2
+![Consultas](./img/p.webp)
 
 
-create schema rh
+- Las funciones de cadena permite manipular tipos de datos 
+- como varchar, nvarchar, char, nchar
 
-create table rh.tablarh (
-  id int primary key,
-  nombre nvarchar(50)
-)
+- FunciÃ³n Len -> devuelve la longitud de una cadena 
 
-
--- vista horizontal
-create or alter view rh.viewcategoriasproductos
-as
-select c.CategoryID, CategoryName, p.ProductID, p.ProductName
-from
-Categories as c
-inner join Products as p
-on c.CategoryID = p.CategoryID;
-GO
-
---Funciones de cadena, fecha, instrucciones de control,
---variables
+- DeclaraciÃ³n de una variable
+DECLARE @numero int;
+SET @numero = 10;
+print @numero
 
 
+            DECLARE @Texto varchar(50) = 'Hola, Mundo!';
+
+- Obtener el tamaÃ±o de la cadena almacenada en la variable Texto
+Select len(@Texto) as [Longitud]
+
+- LEFT -> Extrae un determinado numero de caracteres desde el inicio de la cadena
+
+select LEFT(@Texto, 4) as Inicio
+
+- Right -> Extrae un determinado numero de carecteres del final de la cadena
+select RIGHT(@Texto, 6) as Final
 
 
+- substring -> Extrae una parte de la cadena, donde el segundo parametro, 
+- es la posiciÃ³n inicial y tercer parametro el recorrido
+select SUBSTRING(@Texto2, 7,4)
+-  replace -> Reemplaza una subcadena por otra
+-  REPLACE ( string_expression , string_pattern , string_replacement )  
+SELECT REPLACE(@Texto2, 'Mundo', 'Amigo')
+
+
+         DECLARE @Texto2 varchar(50) = 'Hola, Mundo!';
+- CharIndex
+select CHARINDEX('Hola', @Texto2)
+
+- UPPER -> Convierte una cadena en mayusculas
+select Upper(@Texto2) as Mayusculas
+DECLARE @Texto2 varchar(50) = 'Hola, Mundo!';
+
+             select Concat(
+              LEFT(@Texto2,6),
+			  UPPER(SUBSTRING(@Texto2, 7, 5)),
+			  RIGHT(@texto2,1)
+			  ) as Textonuevo
+
+              Update Customers
+             set CompanyName = Upper(CompanyName)
+             where country in ('Mexico', 'Germany')
+
+- Trim -> Quita espacios en blanco de una cadena
+SELECT TRIM( '     test    ') AS Result;
+
+                DECLARE @Texto2 varchar(50) = '   Hola,Mundo!     ';
+             SELECT LTRIM(@Texto2) AS Result;
+
+             SELECT LTRIM('     Five spaces are at the beginning of this string.');
+             SELECT TRIM('  Five spaces are at the beginning of this string.       ');
+
+               select companyname, len(CompanyName) as 'Numero de Caracteres',
+              LEFT(CompanyName, 4) as Inicio, 
+               RIGHT(CompanyName, 6) as Final, 
+               SUBSTRING(CompanyName,7,4) as 'SubCadena'
+               from Customers
+              GO
